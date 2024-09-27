@@ -52,7 +52,7 @@ export default function SearchBar() {
       return;
     }
 
-    router.push({ pathname: "search", query: { q: keyword } });
+    router.push({ pathname: "/search", query: { q: keyword } });
   };
 
   return (

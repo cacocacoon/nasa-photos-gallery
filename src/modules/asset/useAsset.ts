@@ -1,6 +1,6 @@
 import { startTransition, useEffect, useState } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { baseApi } from "@/pages/api/utils";
+import { baseApi } from "@/modules/utils";
 import {
   type AssetResponse,
   type AssetItem,

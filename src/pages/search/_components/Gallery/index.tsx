@@ -30,22 +30,12 @@ const GalleryColumn = styled.div`
   height: fit-content;
 `;
 
-const LoadingContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 160px;
-  font-size: 32px;
-`;
-
 type GalleryProps = {
   searchItems: SearchItem[];
-  isLoading: boolean;
 };
 
 export default function Gallery(props: GalleryProps) {
-  const { searchItems, isLoading } = props;
+  const { searchItems } = props;
   const containerRef = useRef(null);
   const [columnCount, setColumnCount] = useState(0);
   const [columnsData, setColumnsData] = useState<SearchItem[][]>([]);
@@ -132,7 +122,6 @@ export default function Gallery(props: GalleryProps) {
           </GalleryColumn>
         ))}
       </GalleryTable>
-      {isLoading && <LoadingContainer>Loading...</LoadingContainer>}
     </GalleryContainer>
   );
 }

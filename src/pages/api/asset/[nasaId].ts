@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { nasaImagesApi } from "@/pages/api/utils";
+import { nasaImagesApi } from "@/modules/utils";
 import { isAxiosError } from "axios";
 
 export default async function handler(

@@ -10,8 +10,11 @@ const NavigationContainer = styled.nav`
   gap: 16px;
   position: sticky;
   padding: 0 16px;
+  top: 0;
+  z-index: 1;
   height: 80px;
   width: 100%;
+  backdrop-filter: blur(10px);
 `;
 
 const LogoContainer = styled.div`

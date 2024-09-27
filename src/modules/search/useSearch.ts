@@ -3,7 +3,7 @@ import {
   useSuspenseInfiniteQuery,
   type FetchNextPageOptions,
 } from "@tanstack/react-query";
-import { baseApi } from "@/pages/api/utils";
+import { baseApi } from "@/modules/utils";
 import {
   type SearchResponse,
   type SearchItem,
@@ -17,7 +17,7 @@ type Params = {
 
 export default function useSearch(params: Params) {
   const [innerParams, setInnerParams] = useState<Params>();
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
 
   const queryResult = useSuspenseInfiniteQuery<
     SearchResponse | null,
@@ -84,6 +84,5 @@ export default function useSearch(params: Params) {
   return {
     ...queryResult,
     fetchNextPage,
-    isPending,
   };
 }

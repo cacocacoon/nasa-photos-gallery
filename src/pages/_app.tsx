@@ -9,6 +9,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     color: rgb(33, 25, 34);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI";
+    -webkit-font-smoothing: antialiased;
 
     * {
       box-sizing: border-box;

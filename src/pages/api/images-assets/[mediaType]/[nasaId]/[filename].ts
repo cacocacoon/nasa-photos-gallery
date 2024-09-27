@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { nasaImagesAssetsApi } from "@/pages/api/utils";
+import { nasaImagesAssetsApi } from "@/modules/utils";
 
 export default async function handler(
   req: NextApiRequest,

@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { useState } from "react";
 import styled from "styled-components";
 import Link from "next/link";
 import { MediaType } from "@/modules/search/schemas";
@@ -49,6 +50,26 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
+const Skeleton = styled.div`
+  width: 236px;
+  height: 236px;
+  border-radius: 16px;
+  background-color: #e0e0e0;
+  animation: pulse 1.5s infinite;
+
+  @keyframes pulse {
+    0% {
+      background-color: #e0e0e0;
+    }
+    50% {
+      background-color: #f0f0f0;
+    }
+    100% {
+      background-color: #e0e0e0;
+    }
+  }
+`;
+
 const IMAGE_PRIORITIES = {
   small: 0,
   medium: 1,
@@ -69,27 +90,23 @@ const getPriority = (href: string, priorities: Record<string, number>) => {
 const getMediaHref = (mediaType: MediaType, assetData: AssetItemType[]) => {
   switch (mediaType) {
     case MediaType.IMAGE:
-      return (
-        assetData
-          .filter((item) => /.jpg$/.test(item.href))
-          .sort(
-            (a, b) =>
-              getPriority(a.href, IMAGE_PRIORITIES) -
-              getPriority(b.href, IMAGE_PRIORITIES),
-          )[0]?.href ?? null
-      );
+      return assetData
+        .filter((item) => /.jpg$/.test(item.href))
+        .sort(
+          (a, b) =>
+            getPriority(a.href, IMAGE_PRIORITIES) -
+            getPriority(b.href, IMAGE_PRIORITIES),
+        )[0]?.href;
     case MediaType.VIDEO:
-      return (
-        assetData
-          .filter((item) => /.jpg$/.test(item.href))
-          .sort(
-            (a, b) =>
-              getPriority(a.href, IMAGE_PRIORITIES) -
-              getPriority(b.href, IMAGE_PRIORITIES),
-          )[0]?.href ?? null
-      );
+      return assetData
+        .filter((item) => /.jpg$/.test(item.href))
+        .sort(
+          (a, b) =>
+            getPriority(a.href, IMAGE_PRIORITIES) -
+            getPriority(b.href, IMAGE_PRIORITIES),
+        )[0]?.href;
     default:
-      return null;
+      return undefined;
   }
 };
 
@@ -102,44 +119,27 @@ type AssetItemProps = {
 export default function AssetItem(props: AssetItemProps) {
   const { id, title, mediaType } = props;
   const { data: assetData } = useAsset(id);
+  const [isLoading, setIsLoading] = useState(true);
 
-  if (!assetData) {
-    return null;
-  }
-
-  const href = getMediaHref(mediaType, assetData);
-
-  if (!href) {
-    return null;
-  }
-
-  if (mediaType !== MediaType.IMAGE) {
-    console.log(assetData);
-  }
+  const href = getMediaHref(mediaType, assetData ?? []);
 
   return (
     <StyledLink href={`/asset/${id}`}>
       <AssetItemContainer>
         <MediaContainer>
-          <StyledImg
-            src={href}
-            title={title}
-            alt={title}
-            width={236}
-            height="auto"
-            loading="lazy"
-          />
-          {/* {mediaType === MediaType.IMAGE && (
-          )}
-          {mediaType === MediaType.VIDEO && (
-            <StyledVideo
+          {href && (
+            <StyledImg
               src={href}
               title={title}
+              alt={id}
               width={236}
+              onLoad={() => setIsLoading(false)}
               height="auto"
-              controls
+              loading="lazy"
+              style={{ display: isLoading ? "none" : "block" }}
             />
-          )} */}
+          )}
+          {isLoading && <Skeleton />}
           <MediaMask />
         </MediaContainer>
         <Title>{title}</Title>
