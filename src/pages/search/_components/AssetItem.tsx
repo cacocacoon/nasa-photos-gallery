@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import styled from "styled-components";
-import useAsset from "./useAsset";
 import Link from "next/link";
-import { MediaType } from "@/schemas/search";
-import type { AssetItem as AssetItemType } from "@/schemas/asset";
+import { MediaType } from "@/modules/search/schemas";
+import type { AssetItem as AssetItemType } from "@/modules/asset/schemas";
+import useAsset from "@/modules/asset/useAsset";
 
 const AssetItemContainer = styled.div`
   display: flex;

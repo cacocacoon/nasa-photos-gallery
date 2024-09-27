@@ -1,8 +1,11 @@
-import { AssetResponseSchema } from "./../../schemas/asset";
+import { startTransition, useEffect, useState } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { baseApi } from "@/pages/api/utils";
-import type { AssetResponse, AssetItem } from "@/schemas/asset";
-import { startTransition, useEffect, useState } from "react";
+import {
+  type AssetResponse,
+  type AssetItem,
+  AssetResponseSchema,
+} from "@/modules/asset/schemas";
 
 const ASSET_PATH = "asset" as const;
 const IMAGES_ASSETS_PATH = "images-assets" as const;

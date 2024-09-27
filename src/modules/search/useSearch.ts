@@ -8,7 +8,7 @@ import {
   type SearchResponse,
   type SearchItem,
   SearchResponseSchema,
-} from "@/schemas/search";
+} from "@/modules/search/schemas";
 
 type Params = {
   q?: string;

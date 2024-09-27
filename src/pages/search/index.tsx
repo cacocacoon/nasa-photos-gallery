@@ -1,8 +1,8 @@
 import { Suspense, useEffect } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import Gallery from "@/components/Gallery";
-import useSearch from "./useSearch";
+import Gallery from "@/pages/search/_components/Gallery";
+import useSearch from "../../modules/search/useSearch";
 
 const SearchContainer = styled.div``;
 

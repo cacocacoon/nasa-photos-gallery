@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import type { SearchItem } from "@/schemas/search";
-import AssetItem from "@/pages/search/AssetItem";
+import type { SearchItem } from "@/modules/search/schemas";
+import AssetItem from "@/pages/search/_components/AssetItem";
 
 const COLUMN_WIDTH = 236;
 const GAP_WIDTH = 16;
