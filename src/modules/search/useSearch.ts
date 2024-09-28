@@ -50,6 +50,11 @@ export default function useSearch(params: Params) {
       }
     },
     getNextPageParam(lastPage, allPages, lastPageParam) {
+      const isNoNextPage = (lastPage?.collection.items.length ?? 0) === 0;
+      if (isNoNextPage) {
+        return null;
+      }
+
       return lastPageParam + 1;
     },
     select(data) {
