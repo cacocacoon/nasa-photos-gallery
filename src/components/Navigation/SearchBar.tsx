@@ -9,17 +9,17 @@ const SearchBarContainer = styled.div`
 
 const Input = styled.input`
   width: 100%;
-  height: 100%;
   appearance: none;
   color: rgb(51, 51, 51);
-  background-color: rgb(241, 241, 241);
+  background-color: rgba(241, 241, 241, 0.5);
+  backdrop-filter: blur(10px);
   border: none;
   border-radius: 24px;
-  padding: 0 16px;
-  font-size: 16px;
+  padding: 16px 16px;
+  line-height: 16px;
 
   &:hover {
-    background-color: rgb(225, 225, 225);
+    background-color: rgba(225, 225, 225, 0.5);
   }
 
   &:focus {

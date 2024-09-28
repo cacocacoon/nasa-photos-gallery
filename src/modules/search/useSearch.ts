@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, useTransition } from "react";
+import { useCallback, useEffect, useState, startTransition } from "react";
 import {
   useSuspenseInfiniteQuery,
   type FetchNextPageOptions,
@@ -13,23 +13,32 @@ import {
 type Params = {
   q?: string;
   nasa_id?: string;
+  keywords?: string[];
 };
 
 export default function useSearch(params: Params) {
   const [innerParams, setInnerParams] = useState<Params>();
-  const [, startTransition] = useTransition();
 
   const queryResult = useSuspenseInfiniteQuery<
     SearchResponse | null,
     Error,
     SearchItem[],
-    ["search", q?: string, nasa_id?: string],
+    ["search", q?: string, nasa_id?: string, keywords?: string[]],
     number
   >({
-    queryKey: ["search", innerParams?.q, innerParams?.nasa_id],
+    queryKey: [
+      "search",
+      innerParams?.q,
+      innerParams?.nasa_id,
+      innerParams?.keywords,
+    ],
     initialPageParam: 1,
-    async queryFn({ queryKey: [key, q, nasa_id], pageParam }) {
-      if (q === undefined && q === nasa_id) {
+    async queryFn({ queryKey: [key, q, nasa_id, keywords], pageParam }) {
+      if (
+        typeof q === "undefined" &&
+        typeof nasa_id === "undefined" &&
+        typeof keywords === "undefined"
+      ) {
         return null;
       }
 
@@ -39,6 +48,8 @@ export default function useSearch(params: Params) {
           page_size: 50,
           q,
           nasa_id,
+          keywords,
+          media_type: ["image", "video"],
         },
       });
       const parsed = await SearchResponseSchema.safeParseAsync(data);
@@ -78,13 +89,18 @@ export default function useSearch(params: Params) {
   useEffect(() => {
     const q = params.q;
     const nasa_id = params.nasa_id;
+    const keywords = params.keywords;
 
-    if (typeof q === "string" || typeof nasa_id === "string") {
+    if (
+      typeof q === "string" ||
+      typeof nasa_id === "string" ||
+      (Array.isArray(keywords) && keywords.length > 0)
+    ) {
       startTransition(() => {
-        setInnerParams({ q, nasa_id });
+        setInnerParams({ q, nasa_id, keywords });
       });
     }
-  }, [params.q, params.nasa_id]);
+  }, [params.q, params.nasa_id, params.keywords]);
 
   return {
     ...queryResult,

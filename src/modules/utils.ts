@@ -1,9 +1,13 @@
 import axios from "axios";
+import qs from "qs";
 
 const baseApi = axios.create({
   baseURL: "/api",
   headers: {
     "Content-Type": "application/x-www-form-urlencoded",
+  },
+  paramsSerializer(params) {
+    return qs.stringify(params, { arrayFormat: "comma" });
   },
 });
 

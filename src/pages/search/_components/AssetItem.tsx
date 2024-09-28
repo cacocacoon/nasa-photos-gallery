@@ -5,6 +5,7 @@ import Link from "next/link";
 import { MediaType } from "@/modules/search/schemas";
 import type { AssetItem as AssetItemType } from "@/modules/asset/schemas";
 import useAsset from "@/modules/asset/useAsset";
+import Skeleton from "@/components/Skeleton";
 
 const AssetItemContainer = styled.div`
   display: flex;
@@ -48,26 +49,6 @@ const MediaContainer = styled.div`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-`;
-
-const Skeleton = styled.div`
-  width: 236px;
-  height: 236px;
-  border-radius: 16px;
-  background-color: #e0e0e0;
-  animation: pulse 1.5s infinite;
-
-  @keyframes pulse {
-    0% {
-      background-color: #e0e0e0;
-    }
-    50% {
-      background-color: #f0f0f0;
-    }
-    100% {
-      background-color: #e0e0e0;
-    }
-  }
 `;
 
 const IMAGE_PRIORITIES = {
@@ -134,12 +115,13 @@ export default function AssetItem(props: AssetItemProps) {
               alt={id}
               width={236}
               onLoad={() => setIsLoading(false)}
+              onError={(e) => console.error(e)}
               height="auto"
               loading="lazy"
               style={{ display: isLoading ? "none" : "block" }}
             />
           )}
-          {isLoading && <Skeleton />}
+          {isLoading && <Skeleton $width={236} $height={236} />}
           <MediaMask />
         </MediaContainer>
         <Title>{title}</Title>

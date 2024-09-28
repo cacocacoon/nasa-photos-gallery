@@ -2,6 +2,7 @@ import Image from "next/image";
 import styled from "styled-components";
 import NavLink from "@/components/NavLink";
 import SearchBar from "./SearchBar";
+import Button from "@/components/Button";
 
 const NavigationContainer = styled.nav`
   display: flex;
@@ -15,6 +16,7 @@ const NavigationContainer = styled.nav`
   height: 80px;
   width: 100%;
   backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.5);
 `;
 
 const LogoContainer = styled.div`
@@ -34,29 +36,13 @@ const LogoContainer = styled.div`
   }
 `;
 
-const NavButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 48px;
-  min-width: 60px;
-  padding: 0 16px;
-  border-radius: 24px;
-  white-space: nowrap;
+const NavButton = styled(Button)`
   font-weight: 600;
-  color: black;
-  border: none;
-  cursor: pointer;
-  background-color: rgb(241, 241, 241);
 
   &[aria-current],
   &[aria-current]:hover {
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.9);
     color: white;
-  }
-
-  &:hover {
-    background-color: rgb(225, 225, 225);
   }
 `;
 

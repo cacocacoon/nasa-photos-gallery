@@ -24,7 +24,7 @@ export default function useAsset(nasaId: string) {
   return useSuspenseQuery<
     AssetResponse | null,
     Error,
-    AssetItem[] | null,
+    AssetItem[],
     [typeof ASSET_PATH, string?]
   >({
     queryKey: [ASSET_PATH, innerNasaId],
@@ -46,7 +46,7 @@ export default function useAsset(nasaId: string) {
       return (
         data?.collection.items.map((item) => ({
           href: `${baseApi.defaults.baseURL}/${IMAGES_ASSETS_PATH}${new URL(item.href).pathname}`,
-        })) ?? null
+        })) ?? []
       );
     },
   });

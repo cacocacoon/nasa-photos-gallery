@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 const StyledLink = styled(Link)`
   text-decoration: none;
+  background-color: transparent;
 `;
 
 type LinkProps = Omit<React.ComponentProps<typeof Link>, "children"> & {
