@@ -7,8 +7,8 @@ import {
   AssetResponseSchema,
 } from "@/modules/asset/schemas";
 
-const ASSET_PATH = "asset" as const;
-const IMAGES_ASSETS_PATH = "images-assets" as const;
+const ASSET_PATH = "nasa/images/asset" as const;
+const IMAGES_ASSETS_PATH = "nasa/images-assets" as const;
 
 export default function useAsset(nasaId: string) {
   const [innerNasaId, setInnerNasaId] = useState<string>();

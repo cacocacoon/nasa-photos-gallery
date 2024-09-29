@@ -10,6 +10,8 @@ import {
   SearchResponseSchema,
 } from "@/modules/search/schemas";
 
+const SEARCH_PATH = "nasa/images/search" as const;
+
 type Params = {
   q?: string;
   nasa_id?: string;
@@ -23,17 +25,17 @@ export default function useSearch(params: Params) {
     SearchResponse | null,
     Error,
     SearchItem[],
-    ["search", q?: string, nasa_id?: string, keywords?: string[]],
+    [typeof SEARCH_PATH, q?: string, nasa_id?: string, keywords?: string[]],
     number
   >({
     queryKey: [
-      "search",
+      SEARCH_PATH,
       innerParams?.q,
       innerParams?.nasa_id,
       innerParams?.keywords,
     ],
     initialPageParam: 1,
-    async queryFn({ queryKey: [key, q, nasa_id, keywords], pageParam }) {
+    async queryFn({ queryKey: [, q, nasa_id, keywords], pageParam }) {
       if (
         typeof q === "undefined" &&
         typeof nasa_id === "undefined" &&
@@ -42,7 +44,7 @@ export default function useSearch(params: Params) {
         return null;
       }
 
-      const { data } = await baseApi.get<unknown>(key, {
+      const { data } = await baseApi.get<unknown>(SEARCH_PATH, {
         params: {
           page: pageParam,
           page_size: 50,
