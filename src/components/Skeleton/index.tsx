@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-const Skeleton = styled.div<{ $width: number; $height: number }>`
-  width: ${({ $width }) => $width}px;
-  height: ${({ $height }) => $height}px;
+const Skeleton = styled.div`
+  width: 100px;
+  height: 100px;
   border-radius: 16px;
   background-color: #e0e0e0;
   animation: pulse 1.5s infinite;

@@ -4,9 +4,22 @@ import { format } from "date-fns";
 import useAsset from "@/modules/asset/useAsset";
 import useSearch from "@/modules/search/useSearch";
 import Skeleton from "@/components/Skeleton";
+import Button from "@/components/Button";
 
 const StyledSkeleton = styled(Skeleton)`
   border-radius: 0;
+`;
+
+const ShareButton = styled(Button)`
+  display: none;
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  background-color: rgba(255, 255, 255, 0.9);
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 1);
+  }
 `;
 
 const AssetContentWrapper = styled.div`
@@ -52,14 +65,21 @@ const Title = styled.div`
 
 const StyledImg = styled.img`
   max-width: 100%;
+  border-top-left-radius: 32px;
+  border-bottom-left-radius: 32px;
 `;
 
 const VisualContainer = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   flex: 1;
   max-height: 100%;
+
+  &:hover ${ShareButton} {
+    display: block;
+  }
 `;
 
 const TagsContainer = styled.div`
@@ -108,8 +128,9 @@ export default function AssetContent(props: AssetContentProps) {
           alt={searchItemsData[0]?.data[0].title}
           style={{ display: isLoading ? "none" : "block" }}
         />
-        {isLoading && <StyledSkeleton $width={488} $height={300} />}
-      </VisualContainer>
+        {isLoading && <StyledSkeleton style={{ width: 488, height: 300 }} />}
+        {!isLoading && <ShareButton>Share</ShareButton>}
+        </VisualContainer>
       <DescriptionContainer>
         <Header>
           <Title>{searchItemsData[0]?.data[0].title}</Title>

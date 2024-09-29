@@ -121,7 +121,7 @@ export default function AssetItem(props: AssetItemProps) {
               style={{ display: isLoading ? "none" : "block" }}
             />
           )}
-          {isLoading && <Skeleton $width={236} $height={236} />}
+          {isLoading && <Skeleton style={{ width: 236, height: 236 }} />}
           <MediaMask />
         </MediaContainer>
         <Title>{title}</Title>
