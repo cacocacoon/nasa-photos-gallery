@@ -11,6 +11,16 @@ const baseApi = axios.create({
   },
 });
 
+const nasaApi = axios.create({
+  baseURL: process.env.NASA_API_URL,
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded",
+  },
+  params: {
+    api_key: process.env.NASA_API_KEY,
+  },
+});
+
 const nasaImagesApi = axios.create({
   baseURL: process.env.NASA_IMAGES_API_URL,
   headers: {
@@ -22,4 +32,4 @@ const nasaImagesAssetsApi = axios.create({
   baseURL: process.env.NASA_IMAGES_ASSETS_API_URL,
 });
 
-export { baseApi, nasaImagesApi, nasaImagesAssetsApi };
+export { baseApi, nasaApi, nasaImagesApi, nasaImagesAssetsApi };

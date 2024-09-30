@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import Navigation from "@/components/Navigation";
 
 const GlobalStyle = createGlobalStyle`
@@ -15,6 +15,10 @@ const GlobalStyle = createGlobalStyle`
       box-sizing: border-box;
     }
   }
+`;
+
+const Layout = styled.div`
+  padding: 16px;
 `;
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -34,7 +38,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <GlobalStyle />
       <QueryClientProvider client={queryClient}>
         <Navigation />
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </QueryClientProvider>
     </>
   );

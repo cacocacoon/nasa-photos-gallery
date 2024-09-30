@@ -14,7 +14,6 @@ const AssetContainer = styled.div`
   align-items: center;
   gap: 32px;
   min-height: 500px;
-  padding: 16px;
   z-index: 0;
 `;
 

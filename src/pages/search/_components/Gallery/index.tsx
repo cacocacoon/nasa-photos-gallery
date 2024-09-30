@@ -19,7 +19,6 @@ const GalleryTable = styled.div`
   flex-wrap: nowrap;
   gap: ${GAP_WIDTH}px;
   justify-content: center;
-  padding: 16px;
 `;
 
 const GalleryColumn = styled.div`
