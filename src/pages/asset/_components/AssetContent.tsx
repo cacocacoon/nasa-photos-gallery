@@ -136,7 +136,7 @@ export default function AssetContent(props: AssetContentProps) {
           <Title>{searchItemsData[0]?.data[0].title}</Title>
           {searchItemsData[0]?.data[0].date_created && (
             <DateCreated>
-              {format(searchItemsData[0]?.data[0].date_created, "h aaa PPP")}
+              {format(searchItemsData[0]?.data[0].date_created, "PPPPpp")}
             </DateCreated>
           )}
         </Header>

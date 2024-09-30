@@ -25,17 +25,12 @@ export default function useSearch(params: Params) {
     SearchResponse | null,
     Error,
     SearchItem[],
-    [typeof SEARCH_PATH, q?: string, nasa_id?: string, keywords?: string[]],
+    [typeof SEARCH_PATH, Params],
     number
   >({
-    queryKey: [
-      SEARCH_PATH,
-      innerParams?.q,
-      innerParams?.nasa_id,
-      innerParams?.keywords,
-    ],
+    queryKey: [SEARCH_PATH, innerParams ?? {}],
     initialPageParam: 1,
-    async queryFn({ queryKey: [, q, nasa_id, keywords], pageParam }) {
+    async queryFn({ queryKey: [, { q, nasa_id, keywords }], pageParam }) {
       if (
         typeof q === "undefined" &&
         typeof nasa_id === "undefined" &&

@@ -33,7 +33,7 @@ export default function useAsset(nasaId: string) {
         return null;
       }
 
-      const { data } = await baseApi.get<unknown>(`${ASSET_PATH}/${id}`);
+      const { data } = await baseApi.get(`${ASSET_PATH}/${id}`);
       const parsed = await AssetResponseSchema.safeParseAsync(data);
 
       if (parsed.success) {
