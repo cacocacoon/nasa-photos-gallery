@@ -5,9 +5,23 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   compiler: {
-    styledComponents: {
-      ssr: true,
-    },
+    styledComponents: true,
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "apod.nasa.gov",
+      },
+      {
+        protocol: "https",
+        hostname: "images-api.nasa.gov",
+      },
+      {
+        protocol: "http",
+        hostname: "images-assets.nasa.gov",
+      },
+    ],
   },
 };
 

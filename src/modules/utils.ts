@@ -2,7 +2,7 @@ import axios from "axios";
 import qs from "qs";
 
 const baseApi = axios.create({
-  baseURL: "/api",
+  baseURL: `${process.env.__NEXT_PRIVATE_ORIGIN ?? ""}/api`,
   headers: {
     "Content-Type": "application/x-www-form-urlencoded",
   },
@@ -28,8 +28,4 @@ const nasaImagesApi = axios.create({
   },
 });
 
-const nasaImagesAssetsApi = axios.create({
-  baseURL: process.env.NASA_IMAGES_ASSETS_API_URL,
-});
-
-export { baseApi, nasaApi, nasaImagesApi, nasaImagesAssetsApi };
+export { baseApi, nasaApi, nasaImagesApi };

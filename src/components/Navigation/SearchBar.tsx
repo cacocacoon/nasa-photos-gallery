@@ -1,5 +1,7 @@
+"use client";
+
 import { useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
 import styled from "styled-components";
 
 const SearchBarContainer = styled.div`
@@ -33,6 +35,7 @@ const Input = styled.input`
 
 export default function SearchBar() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [keyword, setKeyword] = useState<string>();
 
   const handleChange: React.FormEventHandler<HTMLInputElement> = (e) => {
@@ -48,11 +51,13 @@ export default function SearchBar() {
     }
 
     if (!keyword?.trim()) {
-      router.push({ pathname: "/" });
+      router.push("/");
       return;
     }
 
-    router.push({ pathname: "/search", query: { q: keyword } });
+    const nextSearchParams = new URLSearchParams(searchParams ?? undefined);
+    nextSearchParams.set("q", keyword);
+    router.push(`/search?${nextSearchParams.toString()}`);
   };
 
   return (

@@ -1,6 +1,8 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 import styled from "styled-components";
 
 const StyledLink = styled(Link)`
@@ -14,12 +16,12 @@ type LinkProps = Omit<React.ComponentProps<typeof Link>, "children"> & {
 
 export default function NavLink({ children, href }: LinkProps) {
   const child = React.Children.only(children);
-  const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <StyledLink href={href}>
       {React.cloneElement(child, {
-        "aria-current": router.pathname === href ? "page" : null,
+        "aria-current": pathname === href ? "page" : null,
       })}
     </StyledLink>
   );

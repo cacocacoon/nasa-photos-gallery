@@ -5,7 +5,7 @@ export const ApodResponseSchema = z.object({
   copyright: z.string().optional(),
   date: z.coerce.string().date(),
   explanation: z.coerce.string(),
-  hdurl: z.coerce.string().url(),
+  hdurl: z.coerce.string().url().optional(),
   media_type: z.nativeEnum(MediaType).default(MediaType.IMAGE),
   service_version: z.coerce.string(),
   title: z.coerce.string(),
