@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Image from "next/image";
 import styled from "styled-components";
 import Link from "next/link";
 import { MediaType } from "@/modules/search/schemas";
@@ -22,7 +21,7 @@ const Title = styled.p`
   color: #111111;
 `;
 
-const StyledImage = styled(Image)`
+const StyledImage = styled.img`
   border-radius: 16px;
   object-fit: cover;
 `;
@@ -41,7 +40,6 @@ const MediaMask = styled.div`
 const MediaContainer = styled.div`
   position: relative;
   width: 236px;
-  min-height: 236px;
 
   &:hover ${MediaMask} {
     display: block;
@@ -111,15 +109,13 @@ export default function AssetItem(props: AssetItemProps) {
         <MediaContainer>
           {href && (
             <StyledImage
-              fill
-              sizes="100%"
               src={href}
               title={title}
               alt={id}
-              onLoadedData={() => setIsLoading(false)}
+              width="100%"
+              height="auto"
+              onLoad={() => setIsLoading(false)}
               onError={(e) => console.error(e)}
-              quality={100}
-              priority
             />
           )}
           {isLoading && <Skeleton style={{ width: 236, height: 236 }} />}
