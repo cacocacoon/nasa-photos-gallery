@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import styled from "styled-components";
 import Button from "@/components/Button";
 
@@ -20,6 +21,7 @@ const BackButton = styled(Button)`
   left: 16px;
   font-weight: 600;
   background-color: white;
+  padding: 12px;
   box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.1);
 `;
 
@@ -38,7 +40,9 @@ export default function AssetContainer({ children }: React.PropsWithChildren) {
 
   return (
     <AssetWrapper>
-      <BackButton onClick={() => router.back()}>⬅</BackButton>
+      <BackButton onClick={() => router.back()}>
+        <Image src="/left-arrow.svg" alt="left arrow" width={20} height={20} />
+      </BackButton>
       {children}
       <AssetBackground onClick={() => router.back()} />
     </AssetWrapper>

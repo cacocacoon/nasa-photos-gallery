@@ -19,18 +19,6 @@ const ShareButton = styled(Button)`
   }
 `;
 
-const AssetContentWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 1016px;
-  max-width: 100%;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 20px 0px;
-  border-radius: 32px;
-  background-color: white;
-  overflow: auto;
-`;
-
 const DescriptionContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -79,6 +67,32 @@ const VisualContainer = styled.div`
   }
 `;
 
+const AssetContentWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 1016px;
+  max-width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 20px 0px;
+  border-radius: 32px;
+  background-color: white;
+  overflow: auto;
+
+  @media screen and (width <= 1160px) {
+    flex-direction: column;
+    width: 580px;
+
+    ${VisualContainer} {
+      flex: initial;
+      width: 100%;
+
+      ${StyledImage} {
+        border-radius: 0;
+      }
+    }
+  }
+`;
+
 const TagsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -116,6 +130,7 @@ export default function AssetContent(props: AssetContentProps) {
           src={assetItemsData[0]?.href}
           alt={searchItemsData[0]?.data[0].title}
           priority
+          quality={100}
         />
         <ShareButton>Share</ShareButton>
       </VisualContainer>
