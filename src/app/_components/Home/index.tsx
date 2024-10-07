@@ -16,19 +16,6 @@ const HomeContainer = styled.div`
   z-index: 0;
 `;
 
-const ContentWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 1016px;
-  max-width: 100%;
-  height: 550px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 20px 0px;
-  border-radius: 32px;
-  background-color: white;
-  overflow: auto;
-`;
-
 const ShareButton = styled(Button)`
   display: none;
   position: absolute;
@@ -58,6 +45,32 @@ const StyledImage = styled(Image)`
   object-fit: cover;
   border-top-left-radius: 32px;
   border-bottom-left-radius: 32px;
+`;
+
+const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 1016px;
+  max-width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 20px 0px;
+  border-radius: 32px;
+  background-color: white;
+  overflow: auto;
+
+  @media screen and (width <= 1160px) {
+    flex-direction: column;
+    width: 580px;
+
+    ${VisualContainer} {
+      flex: initial;
+      width: 100%;
+
+      ${StyledImage} {
+        border-radius: 0;
+      }
+    }
+  }
 `;
 
 const StyledIframe = styled.iframe`
@@ -123,7 +136,14 @@ export default function Home(props: HomeProps) {
       <ContentWrapper>
         <VisualContainer>
           {data.media_type === MediaType.IMAGE && (
-            <StyledImage fill src={data.hdurl ?? data.url} alt={data.title} />
+            <StyledImage
+              fill
+              sizes="100%"
+              src={data.hdurl ?? data.url}
+              alt={data.title}
+              priority
+              quality={100}
+            />
           )}
           {data.media_type === MediaType.VIDEO && (
             <StyledIframe src={data.url} />
