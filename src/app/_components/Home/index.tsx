@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import { type ApodResponse } from "@/modules/apod/schemas";
+import { type Apods } from "@/modules/apod/schemas";
 import Button from "@/components/Button";
 import { MediaType } from "@/modules/search/schemas";
+import ImageSelector from "./ImageSelector";
 
 const HomeContainer = styled.div`
   position: relative;
@@ -28,6 +30,19 @@ const ShareButton = styled(Button)`
   }
 `;
 
+const ImageSelectorContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.3s;
+`;
+
 const VisualContainer = styled.div`
   position: relative;
   display: flex;
@@ -38,6 +53,10 @@ const VisualContainer = styled.div`
 
   &:hover ${ShareButton} {
     display: block;
+  }
+
+  &:hover ${ImageSelectorContainer} {
+    opacity: 1;
   }
 `;
 
@@ -53,6 +72,7 @@ const ContentWrapper = styled.div`
   align-items: center;
   width: 1016px;
   max-width: 100%;
+  height: 70vh;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 20px 0px;
   border-radius: 32px;
   background-color: white;
@@ -61,6 +81,7 @@ const ContentWrapper = styled.div`
   @media screen and (width <= 1160px) {
     flex-direction: column;
     width: 580px;
+    height: auto;
 
     ${VisualContainer} {
       flex: initial;
@@ -114,6 +135,11 @@ const Header = styled.header`
   background-color: white;
 `;
 
+const HomeTitle = styled.div`
+  font-size: 36px;
+  font-weight: bold;
+`;
+
 const Title = styled.div`
   font-size: 28px;
   font-weight: bold;
@@ -125,37 +151,53 @@ const DateCreated = styled.time`
 `;
 
 type HomeProps = {
-  data: ApodResponse;
+  data: Apods;
 };
 
 export default function Home(props: HomeProps) {
   const { data } = props;
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const selectedApod = data[selectedIndex];
+
+  if (!selectedApod) {
+    return null;
+  }
 
   return (
     <HomeContainer>
+      <HomeTitle>Astronomy Pictures of the Day</HomeTitle>
       <ContentWrapper>
         <VisualContainer>
-          {data.media_type === MediaType.IMAGE && (
+          {selectedApod.media_type === MediaType.IMAGE && (
             <StyledImage
               fill
               sizes="100%"
-              src={data.hdurl ?? data.url}
-              alt={data.title}
+              src={selectedApod.hdurl ?? selectedApod.url}
+              alt={selectedApod.title}
               priority
               quality={100}
             />
           )}
-          {data.media_type === MediaType.VIDEO && (
-            <StyledIframe src={data.url} />
+          {selectedApod.media_type === MediaType.VIDEO && (
+            <StyledIframe src={selectedApod.url} />
           )}
+          <ImageSelectorContainer>
+            <ImageSelector
+              items={data}
+              selectedIndex={selectedIndex}
+              onSelect={(index) => setSelectedIndex(index)}
+            />
+          </ImageSelectorContainer>
         </VisualContainer>
         <DescriptionContainer>
           <Header>
-            <Title>{data.title}</Title>
-            <DateCreated>{data.date}</DateCreated>
+            <Title>{selectedApod.title}</Title>
+            <DateCreated>{selectedApod.date}</DateCreated>
           </Header>
-          <Description>{data.explanation}</Description>
-          {data.copyright && <CopyRight>{data.copyright}</CopyRight>}
+          <Description>{selectedApod.explanation}</Description>
+          {selectedApod.copyright && (
+            <CopyRight>{selectedApod.copyright}</CopyRight>
+          )}
         </DescriptionContainer>
       </ContentWrapper>
     </HomeContainer>

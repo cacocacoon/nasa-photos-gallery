@@ -16,9 +16,14 @@ const nasaApi = axios.create({
   headers: {
     "Content-Type": "application/x-www-form-urlencoded",
   },
-  params: {
-    api_key: process.env.NASA_API_KEY,
-  },
+});
+
+nasaApi.interceptors.request.use((config) => {
+  if (config.params instanceof URLSearchParams && process.env.NASA_API_KEY) {
+    config.params.set("api_key", process.env.NASA_API_KEY);
+  }
+
+  return config;
 });
 
 const nasaImagesApi = axios.create({

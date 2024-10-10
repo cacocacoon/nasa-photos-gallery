@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { MediaType } from "@/modules/search/schemas";
 
-export const ApodResponseSchema = z.object({
+export const ApodSchema = z.object({
   copyright: z.string().optional(),
   date: z.coerce.string().date(),
   explanation: z.coerce.string(),
@@ -12,4 +12,8 @@ export const ApodResponseSchema = z.object({
   url: z.coerce.string().url(),
 });
 
-export type ApodResponse = z.infer<typeof ApodResponseSchema>;
+export type Apod = z.infer<typeof ApodSchema>;
+
+export const ApodsSchema = z.array(ApodSchema);
+
+export type Apods = z.infer<typeof ApodsSchema>;
