@@ -2,6 +2,8 @@ import querySearch from "@/modules/search/querySearch";
 import SearchContent from "./_components/SearchContent";
 import { SEARCH_PATH } from "@/modules/search/constants";
 
+export const dynamic = "force-dynamic";
+
 type PageProps = {
   searchParams: {
     q?: string;
