@@ -7,6 +7,7 @@ export default function tryFetch<T extends () => Response | Promise<Response>>(
   try {
     return fetcher();
   } catch (error) {
+    console.error(error);
     if (isAxiosError(error)) {
       const { response } = error;
       const {
@@ -21,7 +22,6 @@ export default function tryFetch<T extends () => Response | Promise<Response>>(
         { status: 500, statusText: "Internal Server Error" },
       );
     } else {
-      console.error(error);
       return NextResponse.json(null, {
         status: 500,
         statusText: "Internal Server Error",
