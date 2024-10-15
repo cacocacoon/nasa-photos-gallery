@@ -1,5 +1,5 @@
 import { SEARCH_PATH } from "@/modules/search/constants";
-import { MediaType, SearchResponseSchema } from "@/modules/search/schemas";
+import { MediaType, type SearchResponse } from "@/modules/search/schemas";
 import type { SearchQueryKey } from "@/modules/search/types";
 import { baseApi } from "@/modules/utils";
 
@@ -19,7 +19,7 @@ export default async function querySearch({
   }
 
   try {
-    const response = await baseApi.get<unknown>(SEARCH_PATH, {
+    const response = await baseApi.get<SearchResponse>(SEARCH_PATH, {
       params: {
         page: pageParam,
         page_size: 50,
@@ -30,13 +30,8 @@ export default async function querySearch({
       },
     });
     const { data } = response;
-    const parsed = await SearchResponseSchema.safeParseAsync(data);
 
-    if (parsed.success) {
-      return parsed.data;
-    } else {
-      throw parsed.error;
-    }
+    return data;
   } catch (error) {
     throw error;
   }

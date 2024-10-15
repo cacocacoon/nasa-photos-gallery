@@ -1,8 +1,7 @@
 import Asset from "@/app/asset/_components/Asset";
-import { SEARCH_PATH } from "@/modules/search/constants";
-import { ASSET_PATH } from "@/modules/asset/constants";
-import queryAsset from "@/modules/asset/queryAsset";
-import querySearch from "@/modules/search/querySearch";
+import getAsset from "@/modules/asset/getAsset";
+import getSearch from "@/modules/search/getSearch";
+import { MediaType } from "@/modules/search/schemas";
 
 type AssetPageProps = {
   params: {
@@ -14,15 +13,16 @@ export default async function AssetPage(props: AssetPageProps) {
   const { params } = props;
   const { nasaId } = params;
 
-  const searchDataPromise = querySearch({
-    queryKey: [SEARCH_PATH, { nasa_id: nasaId }],
-    pageParam: 1,
-  });
-  const assetDataPromise = queryAsset({
-    queryKey: [ASSET_PATH, nasaId],
-  });
-
-  const [searchData, assetData] = await Promise.all([
+  const searchDataPromise = getSearch(
+    new URLSearchParams({
+      nasa_id: nasaId!,
+      page: "1",
+      page_size: "50",
+      media_type: `${MediaType.IMAGE},${MediaType.VIDEO}`,
+    }),
+  );
+  const assetDataPromise = getAsset(nasaId!);
+  const [{ data: searchData }, { data: assetData }] = await Promise.all([
     searchDataPromise,
     assetDataPromise,
   ]);

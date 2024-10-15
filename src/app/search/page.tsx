@@ -1,6 +1,6 @@
-import querySearch from "@/modules/search/querySearch";
 import SearchContent from "./_components/SearchContent";
-import { SEARCH_PATH } from "@/modules/search/constants";
+import getSearch from "@/modules/search/getSearch";
+import { MediaType } from "@/modules/search/schemas";
 
 export const dynamic = "force-dynamic";
 
@@ -13,10 +13,15 @@ type PageProps = {
 export default async function Page(props: PageProps) {
   const { searchParams } = props;
   const { q } = searchParams;
-  const searchResponse = await querySearch({
-    queryKey: [SEARCH_PATH, { q }],
-    pageParam: 1,
-  });
+
+  const { data: searchResponse } = await getSearch(
+    new URLSearchParams({
+      q: q!,
+      page: "1",
+      page_size: "50",
+      media_type: `${MediaType.IMAGE},${MediaType.VIDEO}`,
+    }),
+  );
 
   const initialData = searchResponse
     ? {

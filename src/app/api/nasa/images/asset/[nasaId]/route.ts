@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { nasaImagesApi } from "@/modules/utils";
 import tryFetch from "@/libs/tryFetch";
+import getAsset from "@/modules/asset/getAsset";
 
 type Params = {
   nasaId: string;
@@ -9,9 +9,7 @@ type Params = {
 export function GET(request: NextRequest, { params }: { params: Params }) {
   const { nasaId } = params;
   return tryFetch(async () => {
-    const { data, status, statusText } = await nasaImagesApi.get(
-      `/asset/${nasaId}`,
-    );
+    const { data, status, statusText } = await getAsset(nasaId);
     return NextResponse.json(data, {
       status,
       statusText,
