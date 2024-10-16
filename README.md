@@ -1,4 +1,8 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# NASA Photos Gallery
+[Demo](https://nasa-photos-gallery-izujxyg8k-cacocacoons-projects.vercel.app/)
+This is an application that displays photos from [NASA's API](https://api.nasa.gov/). The user can search for photos by keywords and view the details of each photo. The application is built with Next.js and TypeScript.
+
+[Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
