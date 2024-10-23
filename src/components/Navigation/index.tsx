@@ -67,7 +67,12 @@ export default function Navigation() {
         <NavButton>Home</NavButton>
       </NavLink>
       <SearchBar />
-      <NavButton>Github</NavButton>
+      <a
+        href="https://github.com/cacocacoon/nasa-photos-gallery"
+        target="_blank"
+      >
+        <NavButton>Github</NavButton>
+      </a>
     </NavigationContainer>
   );
 }
